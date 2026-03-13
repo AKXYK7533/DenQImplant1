@@ -1,9 +1,9 @@
 :root {
     --denq-pink: #F0798C;
-    --app-bg: #f4f7f6; /* Soft off-white to prevent screen glare */
-    --panel-bg: #ffffff; /* Pure white for the chat and panels */
-    --border-color: #e0e0e0; /* Light, subtle borders */
-    --text-main: #333333; /* Dark grey for comfortable reading */
+    --app-bg: #f4f7f6; 
+    --panel-bg: #ffffff; 
+    --border-color: #e0e0e0; 
+    --text-main: #333333; 
     --text-muted: #666666;
 }
 
@@ -12,24 +12,27 @@ body {
     background-color: var(--app-bg);
     color: var(--text-main);
     margin: 0;
-    height: 100vh;
+    min-height: 100vh; /* Changed from fixed height so mobile can scroll */
     display: flex;
     flex-direction: column;
 }
 
-/* --- DASHBOARD LAYOUT --- */
+/* --- DASHBOARD LAYOUT (PC) --- */
 .dashboard-layout {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 40px;
-    height: 90vh; 
-    padding: 0 40px;
+    align-items: stretch;
+    gap: 30px;
+    padding: 30px 20px;
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .side-panel {
     width: 250px;
-    height: 600px;
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -37,7 +40,7 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* Soft shadow */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
 }
 
 .side-panel h3 {
@@ -102,13 +105,14 @@ body {
     background-color: #fafafa;
 }
 
-/* --- CHAT CONTAINER UPDATES --- */
+/* --- CHAT CONTAINER --- */
 .chat-container {
-    width: 420px;
-    height: 600px;
+    flex: 1; /* Allows it to grow and shrink */
+    max-width: 500px; /* Prevents it from getting too wide on PC */
+    min-width: 320px;
     background-color: var(--panel-bg);
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(240, 121, 140, 0.15); /* Pink tinted shadow */
+    box-shadow: 0 8px 24px rgba(240, 121, 140, 0.15); 
     display: flex;
     flex-direction: column;
     border: 1px solid var(--border-color);
@@ -121,16 +125,19 @@ body {
     font-weight: bold;
     border-bottom: 1px solid var(--border-color);
     color: var(--denq-pink);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 .chat-messages {
     flex-grow: 1;
+    height: 450px; /* Fixed height for PC */
     padding: 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background-color: #fafafa; /* Slightly distinct from the white input area */
+    background-color: #fafafa; 
 }
 
 /* --- MESSAGE BUBBLES & TIMESTAMPS --- */
@@ -140,14 +147,8 @@ body {
     max-width: 85%;
 }
 
-.wrapper-bot {
-    align-self: flex-start;
-}
-
-.wrapper-user {
-    align-self: flex-end;
-    align-items: flex-end;
-}
+.wrapper-bot { align-self: flex-start; }
+.wrapper-user { align-self: flex-end; align-items: flex-end; }
 
 .message {
     padding: 12px 16px;
@@ -156,18 +157,14 @@ body {
     line-height: 1.5;
 }
 
-/* Bot bubbles are now light grey with dark text */
 .bot-message {
     background-color: #e9ecef;
     color: var(--text-main);
     border-bottom-left-radius: 4px;
 }
 
-.bot-message strong {
-    color: var(--denq-pink);
-}
+.bot-message strong { color: var(--denq-pink); }
 
-/* User bubbles stay pink with white text for contrast */
 .user-message {
     background-color: var(--denq-pink);
     color: #ffffff;
@@ -199,6 +196,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 20px;
     outline: none;
+    min-width: 0; /* Prevents input from breaking flexbox on tiny screens */
 }
 
 #user-input:focus {
@@ -217,19 +215,72 @@ body {
     transition: background-color 0.2s;
 }
 
-.pink-btn:hover {
-    background-color: #e06075;
-}
+.pink-btn:hover { background-color: #e06075; }
 
 /* --- FOOTER --- */
 .precision-footer {
     text-align: center;
     font-size: 0.85em;
     color: var(--text-muted);
-    padding-bottom: 20px;
+    padding: 20px;
 }
 
 .precision-footer .location-bold {
     font-weight: bold;
     color: var(--denq-pink);
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE RULES
+   ========================================================= */
+@media (max-width: 850px) {
+    .dashboard-layout {
+        flex-direction: column; /* Stacks everything vertically */
+        padding: 15px;
+        gap: 20px;
+    }
+
+    /* Use flex 'order' to put the chat at the very top for mobile users */
+    .chat-container {
+        order: 1;
+        max-width: 100%; /* Take up full width of phone screen */
+    }
+
+    .chat-messages {
+        height: 60vh; /* Dynamic height based on phone screen size */
+    }
+
+    .left-panel {
+        order: 2; /* Quick links go right under the chat */
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .panel-logo {
+        display: none; /* Hide logo on mobile side-panel to save space */
+    }
+
+    /* Turn list into tappable chips for mobile thumbs */
+    .quick-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .quick-links li {
+        flex: 1 1 calc(50% - 10px); /* 2 columns on mobile */
+        border: 1px solid var(--border-color);
+        background-color: var(--app-bg);
+        border-radius: 8px;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .right-panel {
+        order: 3; /* Company info goes at the very bottom */
+        width: 100%;
+        height: auto;
+    }
 }
