@@ -1,0 +1,235 @@
+:root {
+    --denq-pink: #F0798C;
+    --app-bg: #f4f7f6; /* Soft off-white to prevent screen glare */
+    --panel-bg: #ffffff; /* Pure white for the chat and panels */
+    --border-color: #e0e0e0; /* Light, subtle borders */
+    --text-main: #333333; /* Dark grey for comfortable reading */
+    --text-muted: #666666;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--app-bg);
+    color: var(--text-main);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- DASHBOARD LAYOUT --- */
+.dashboard-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 90vh; 
+    padding: 0 40px;
+}
+
+.side-panel {
+    width: 250px;
+    height: 600px;
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* Soft shadow */
+}
+
+.side-panel h3 {
+    color: var(--denq-pink);
+    font-size: 1.1em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.panel-logo {
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 30px;
+}
+
+/* Quick Links List */
+.quick-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quick-links li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--text-main);
+}
+
+.quick-links li:hover {
+    color: var(--denq-pink);
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+/* Info Card & Diagram */
+.info-card {
+    background-color: var(--app-bg);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.diagram-container {
+    flex-grow: 1;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    color: var(--text-muted);
+    font-size: 0.8em;
+    background-color: #fafafa;
+}
+
+/* --- CHAT CONTAINER UPDATES --- */
+.chat-container {
+    width: 420px;
+    height: 600px;
+    background-color: var(--panel-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(240, 121, 140, 0.15); /* Pink tinted shadow */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+.chat-header {
+    background-color: var(--panel-bg);
+    padding: 16px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--denq-pink);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #fafafa; /* Slightly distinct from the white input area */
+}
+
+/* --- MESSAGE BUBBLES & TIMESTAMPS --- */
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+}
+
+.wrapper-bot {
+    align-self: flex-start;
+}
+
+.wrapper-user {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.message {
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Bot bubbles are now light grey with dark text */
+.bot-message {
+    background-color: #e9ecef;
+    color: var(--text-main);
+    border-bottom-left-radius: 4px;
+}
+
+.bot-message strong {
+    color: var(--denq-pink);
+}
+
+/* User bubbles stay pink with white text for contrast */
+.user-message {
+    background-color: var(--denq-pink);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.timestamp {
+    font-size: 0.7em;
+    color: var(--text-muted);
+    margin-top: 4px;
+    padding: 0 4px;
+}
+
+/* --- INPUT AREA --- */
+.chat-input-area {
+    display: flex;
+    padding: 16px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--panel-bg);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 12px 16px;
+    background-color: var(--app-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    outline: none;
+}
+
+#user-input:focus {
+    border-color: var(--denq-pink);
+    box-shadow: 0 0 5px rgba(240, 121, 140, 0.3);
+}
+
+.pink-btn {
+    background-color: var(--denq-pink);
+    color: white;
+    border: none;
+    padding: 0 16px;
+    margin-left: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pink-btn:hover {
+    background-color: #e06075;
+}
+
+/* --- FOOTER --- */
+.precision-footer {
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    padding-bottom: 20px;
+}
+
+.precision-footer .location-bold {
+    font-weight: bold;
+    color: var(--denq-pink);
+}
